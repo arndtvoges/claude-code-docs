@@ -47,4 +47,4 @@
 - [Optimize your terminal setup](https://code.claude.com/docs/en/terminal-config.md): Claude Code works best when your terminal is properly configured. Follow these guidelines to optimize your experience.
 - [Enterprise deployment overview](https://code.claude.com/docs/en/third-party-integrations.md): Learn how Claude Code can integrate with various third-party services and infrastructure to meet enterprise deployment requirements.
 - [Troubleshooting](https://code.claude.com/docs/en/troubleshooting.md): Discover solutions to common issues with Claude Code installation and usage.
-- [Visual Studio Code](https://code.claude.com/docs/en/vs-code.md): Use Claude Code with Visual Studio Code through our native extension or CLI integration
+- [Visual Studio Code](https://code.claude.com/docs/en/vs-code.md): Use Claude Code with Visual Studio Code through the native extension or CLI integration
