@@ -10,31 +10,41 @@ Prerequisites:
 
 **Install Claude Code:**
 
+To install Claude Code, use one of the following methods:
+
 <Tabs>
-  <Tab title="macOS/Linux">
+  <Tab title="Native Install (Recommended)">
+    **macOS, Linux, WSL:**
+
     ```bash  theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
+    ```
+
+    **Windows PowerShell:**
+
+    ```powershell  theme={null}
+    irm https://claude.ai/install.ps1 | iex
+    ```
+
+    **Windows CMD:**
+
+    ```batch  theme={null}
+    curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
     ```
   </Tab>
 
   <Tab title="Homebrew">
-    ```bash  theme={null}
+    ```sh  theme={null}
     brew install --cask claude-code
     ```
   </Tab>
 
-  <Tab title="Windows">
-    ```powershell  theme={null}
-    irm https://claude.ai/install.ps1 | iex
-    ```
-  </Tab>
-
   <Tab title="NPM">
-    ```bash  theme={null}
+    If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
+
+    ```sh  theme={null}
     npm install -g @anthropic-ai/claude-code
     ```
-
-    Requires [Node.js 18+](https://nodejs.org/en/download/)
   </Tab>
 </Tabs>
 
@@ -48,12 +58,8 @@ claude
 You'll be prompted to log in on first use. That's it! [Continue with Quickstart (5 minutes) →](/en/quickstart)
 
 <Tip>
-  See [advanced setup](/en/setup) for installation options or [troubleshooting](/en/troubleshooting) if you hit issues.
+  Claude Code automatically keeps itself up to date. See [advanced setup](/en/setup) for installation options, manual updates, or uninstallation instructions. Visit [troubleshooting](/en/troubleshooting) if you hit issues.
 </Tip>
-
-<Note>
-  **New VS Code Extension (Beta)**: Prefer a graphical interface? Our new [VS Code extension](/en/vs-code) provides an easy-to-use native IDE experience without requiring terminal familiarity. Simply install from the marketplace and start coding with Claude directly in your sidebar.
-</Note>
 
 ## What Claude Code does for you
 
@@ -92,6 +98,10 @@ You'll be prompted to log in on first use. That's it! [Continue with Quickstart 
 ## Additional resources
 
 <CardGroup>
+  <Card title="About Claude Code" icon="sparkles" href="https://claude.com/product/claude-code">
+    Learn more about Claude Code on claude.com
+  </Card>
+
   <Card title="Build with the Agent SDK" icon="code-branch" href="https://docs.claude.com/en/docs/agent-sdk/overview">
     Create custom AI agents with the Claude Agent SDK
   </Card>

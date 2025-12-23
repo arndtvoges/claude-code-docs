@@ -21,35 +21,35 @@ To install Claude Code, use one of the following methods:
 
 <Tabs>
   <Tab title="Native Install (Recommended)">
-    **Homebrew (macOS, Linux):**
-
-    ```sh theme={null} theme={null} theme={null}
-    brew install --cask claude-code
-    ```
-
     **macOS, Linux, WSL:**
 
-    ```bash theme={null} theme={null} theme={null}
+    ```bash  theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
     ```
 
     **Windows PowerShell:**
 
-    ```powershell theme={null} theme={null} theme={null}
+    ```powershell  theme={null}
     irm https://claude.ai/install.ps1 | iex
     ```
 
     **Windows CMD:**
 
-    ```batch theme={null} theme={null} theme={null}
+    ```batch  theme={null}
     curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+    ```
+  </Tab>
+
+  <Tab title="Homebrew">
+    ```sh  theme={null}
+    brew install --cask claude-code
     ```
   </Tab>
 
   <Tab title="NPM">
     If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
 
-    ```sh theme={null} theme={null} theme={null}
+    ```sh  theme={null}
     npm install -g @anthropic-ai/claude-code
     ```
   </Tab>
@@ -127,10 +127,6 @@ curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
 
 <Note>
   **Alpine Linux and other musl/uClibc-based distributions**: The native build requires `libgcc`, `libstdc++`, and `ripgrep`. For Alpine: `apk add libgcc libstdc++ ripgrep`. Set `USE_BUILTIN_RIPGREP=0`.
-</Note>
-
-<Note>
-  Claude Code installed via Homebrew will auto-update outside of the brew directory unless explicitly disabled with the `DISABLE_AUTOUPDATER` environment variable (see [Auto updates](#auto-updates) section).
 </Note>
 
 **Windows PowerShell:**
@@ -212,6 +208,91 @@ export DISABLE_AUTOUPDATER=1
 
 ```bash  theme={null}
 claude update
+```
+
+## Uninstall Claude Code
+
+If you need to uninstall Claude Code, follow the instructions for your installation method.
+
+### Native installation
+
+Remove the Claude Code binary and symlink:
+
+**macOS, Linux, WSL:**
+
+```bash  theme={null}
+rm -f ~/.local/bin/claude
+rm -rf ~/.claude-code
+```
+
+**Windows PowerShell:**
+
+```powershell  theme={null}
+Remove-Item -Path "$env:LOCALAPPDATA\Programs\claude-code" -Recurse -Force
+Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\WindowsApps\claude.exe" -Force
+```
+
+**Windows CMD:**
+
+```batch  theme={null}
+rmdir /s /q "%LOCALAPPDATA%\Programs\claude-code"
+del "%LOCALAPPDATA%\Microsoft\WindowsApps\claude.exe"
+```
+
+### Homebrew installation
+
+```bash  theme={null}
+brew uninstall --cask claude-code
+```
+
+### NPM installation
+
+```bash  theme={null}
+npm uninstall -g @anthropic-ai/claude-code
+```
+
+### Clean up configuration files (optional)
+
+<Warning>
+  Removing configuration files will delete all your settings, allowed tools, MCP server configurations, and session history.
+</Warning>
+
+To remove Claude Code settings and cached data:
+
+**macOS, Linux, WSL:**
+
+```bash  theme={null}
+# Remove user settings and state
+rm -rf ~/.claude
+rm ~/.claude.json
+
+# Remove project-specific settings (run from your project directory)
+rm -rf .claude
+rm -f .mcp.json
+```
+
+**Windows PowerShell:**
+
+```powershell  theme={null}
+# Remove user settings and state
+Remove-Item -Path "$env:USERPROFILE\.claude" -Recurse -Force
+Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force
+
+# Remove project-specific settings (run from your project directory)
+Remove-Item -Path ".claude" -Recurse -Force
+Remove-Item -Path ".mcp.json" -Force
+```
+
+**Windows CMD:**
+
+```batch  theme={null}
+REM Remove user settings and state
+rmdir /s /q "%USERPROFILE%\.claude"
+del "%USERPROFILE%\.claude.json"
+
+REM Remove project-specific settings (run from your project directory)
+rmdir /s /q ".claude"
+del ".mcp.json"
 ```
 
 

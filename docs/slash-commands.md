@@ -34,11 +34,13 @@
 | `/pr-comments`            | View pull request comments                                                                                                  |
 | `/privacy-settings`       | View and update your privacy settings                                                                                       |
 | `/release-notes`          | View release notes                                                                                                          |
-| `/resume`                 | Resume a conversation                                                                                                       |
+| `/rename <name>`          | Rename the current session for easier identification                                                                        |
+| `/resume [session]`       | Resume a conversation by ID or name, or open the session picker                                                             |
 | `/review`                 | Request code review                                                                                                         |
 | `/rewind`                 | Rewind the conversation and/or code                                                                                         |
 | `/sandbox`                | Enable sandboxed bash tool with filesystem and network isolation for safer, more autonomous execution                       |
 | `/security-review`        | Complete a security review of pending changes on the current branch                                                         |
+| `/stats`                  | Visualize daily usage, session history, streaks, and model preferences                                                      |
 | `/status`                 | Open the Settings interface (Status tab) showing version, model, account, and connectivity                                  |
 | `/statusline`             | Set up Claude Code's status line UI                                                                                         |
 | `/terminal-setup`         | Install Shift+Enter key binding for newlines (iTerm2 and VSCode only)                                                       |
@@ -331,16 +333,17 @@ Use the `/mcp` command to:
 
 ### MCP permissions and wildcards
 
-Wildcards aren't supported in [permissions for MCP tools](/en/iam#tool-specific-permission-rules).
-
-To approve all tools from an MCP server, use the server name alone, without wildcards:
+To approve all tools from an MCP server, use either the server name alone or wildcard syntax:
 
 * `mcp__github` (approves all GitHub tools)
+* `mcp__github__*` (wildcard syntax, also approves all GitHub tools)
 
 To approve specific tools, list each one explicitly:
 
 * `mcp__github__get_issue`
 * `mcp__github__list_issues`
+
+See [MCP permission rules](/en/iam#tool-specific-permission-rules) for more details.
 
 ## `SlashCommand` tool
 

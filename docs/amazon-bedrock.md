@@ -48,7 +48,15 @@ aws sso login --profile=<your-profile-name>
 export AWS_PROFILE=your-profile-name
 ```
 
-**Option D: Bedrock API keys**
+**Option D: AWS Management Console credentials**
+
+```bash  theme={null}
+aws login
+```
+
+[Learn more](https://docs.aws.amazon.com/signin/latest/userguide/command-line-sign-in.html) about `aws login`.
+
+**Option E: Bedrock API keys**
 
 ```bash  theme={null}
 export AWS_BEARER_TOKEN_BEDROCK=your-bedrock-api-key
@@ -101,8 +109,6 @@ export AWS_REGION=us-east-1  # or your preferred region
 # Optional: Override the region for the small/fast model (Haiku)
 export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
 ```
-
-**For VS Code Extension users**: Configure environment variables in the VS Code extension settings instead of exporting them in your shell. See [Using Third-Party Providers in VS Code](/en/vs-code#using-third-party-providers-vertex-and-bedrock) for detailed instructions. All environment variables shown in this guide should work when configured through the VS Code extension settings.
 
 When enabling Bedrock for Claude Code, keep the following in mind:
 
