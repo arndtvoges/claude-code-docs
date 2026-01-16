@@ -3,8 +3,12 @@
 const fs = require('fs');
 const path = require('path');
 
+const { execSync } = require('child_process');
+
 const INDEX_URL = 'https://code.claude.com/docs/llms.txt';
 const DOCS_DIR = path.join(__dirname, 'docs');
+const SOURCE_DIR = path.join(__dirname, 'claude-code-source-reference');
+const NPM_REGISTRY_URL = 'https://registry.npmjs.org/@anthropic-ai/claude-code';
 
 async function main() {
   // Track changes
@@ -111,6 +115,62 @@ async function main() {
   } else {
     console.log('  (none)');
   }
+
+  // Sync Claude Code source
+  await syncClaudeCodeSource();
+}
+
+async function syncClaudeCodeSource() {
+  console.log('\n' + '='.repeat(40));
+  console.log('Syncing Claude Code Source');
+  console.log('='.repeat(40) + '\n');
+
+  // Get latest version from NPM registry
+  const registryRes = await fetch(NPM_REGISTRY_URL);
+  if (!registryRes.ok) {
+    throw new Error(`Failed to fetch NPM registry: ${registryRes.status}`);
+  }
+  const registryData = await registryRes.json();
+  const latestVersion = registryData['dist-tags'].latest;
+  const tarballUrl = registryData.versions[latestVersion].dist.tarball;
+
+  console.log(`Latest version: ${latestVersion}`);
+  console.log(`Downloading from: ${tarballUrl}`);
+
+  // Clear and recreate directory
+  if (fs.existsSync(SOURCE_DIR)) {
+    fs.rmSync(SOURCE_DIR, { recursive: true });
+  }
+  fs.mkdirSync(SOURCE_DIR, { recursive: true });
+
+  // Download tarball
+  const tarballRes = await fetch(tarballUrl);
+  if (!tarballRes.ok) {
+    throw new Error(`Failed to download tarball: ${tarballRes.status}`);
+  }
+  const tarballBuffer = Buffer.from(await tarballRes.arrayBuffer());
+  const tarballPath = path.join(SOURCE_DIR, 'package.tgz');
+  fs.writeFileSync(tarballPath, tarballBuffer);
+
+  // Extract using tar
+  execSync(`tar -xzf package.tgz`, { cwd: SOURCE_DIR });
+
+  // Move files from package/ to SOURCE_DIR, excluding vendor/
+  const packageDir = path.join(SOURCE_DIR, 'package');
+  const files = fs.readdirSync(packageDir);
+  for (const file of files) {
+    if (file === 'vendor') continue; // Skip ripgrep binaries
+    const src = path.join(packageDir, file);
+    const dest = path.join(SOURCE_DIR, file);
+    fs.renameSync(src, dest);
+  }
+
+  // Cleanup
+  fs.rmSync(packageDir, { recursive: true });
+  fs.unlinkSync(tarballPath);
+
+  console.log(`\nExtracted to ${SOURCE_DIR}:`);
+  fs.readdirSync(SOURCE_DIR).forEach(f => console.log(`  - ${f}`));
 }
 
 main().catch(err => {

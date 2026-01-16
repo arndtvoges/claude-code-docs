@@ -1,6 +1,7 @@
 # Claude Code Documentation Reference
 
-This directory contains the complete Claude Code documentation for answering implementation questions.
+This directory contains the complete Claude Code documentation for answering implementation questions. They are located in `docs`.
+It also contains the official Claude Code minified and obfuscated monolithic JS bundle. That is located in `claude-code-source-reference`.
 
 ## Purpose
 
@@ -16,6 +17,8 @@ This documentation directory exists to ask implementation questions and ground a
 ## Usage
 
 When answering questions about Claude Code features or implementation details, **always use the `claude-code-docs-search` skill** to search the `docs/` folder first. This ensures answers are grounded in the actual documentation.
+
+Not all features of Claude Code are documented in the docs. That's why you also have access to the `claude-code-reverse-engineer` skill. It allows you to read the closed-source, minified JS bundle of Claude Code that is downloaded locally.
 
 ## Documenting your work
 Save each finding/answer you provide to the user under the `findings` directory as a markdown report.
